@@ -259,6 +259,18 @@
       </header>
       <div class="menu" id="menu">
         <button
+          id="installBtn"
+          onclick="installApp()"
+          style="
+            display: none;
+            background: #e91e63;
+            color: black;
+            font-weight: bold;
+          "
+        >
+          ☁️Install Pop Berry
+        </button>
+        <button
           onclick="alert(`🁬 HOW TO PLAY
 
 🎯 Swap fruits to match 3+ in a row/column.
@@ -565,9 +577,24 @@ Level up by scoring big and crushing more! 💓`);"
           : new Promise((res) =>
               bgMusic.addEventListener("canplaythrough", res, { once: true }),
             );
-      Promise.all([crushReady, bgReady]).then(() => {
+      const loadingTimeout = new Promise(
+        (resolve) => setTimeout(resolve, 10000), // max wait 10 seconds
+      );
+
+      Promise.race([
+        Promise.all([crushReady, bgReady]), // Wait for audio
+        loadingTimeout, // OR timeout
+      ]).then(() => {
         loadingScreen.style.display = "none";
         gameContainer.style.display = "block";
+
+        // If audio not ready, load silently in background
+        if (crushSound.readyState < 2) {
+          crushSound.load();
+        }
+        if (bgMusic.readyState < 2) {
+          bgMusic.load();
+        }
       });
     </script>
     <script>
@@ -610,6 +637,34 @@ Level up by scoring big and crushing more! 💓`);"
 
       // Continuously spawn flowers every 400ms (adjust for more/less)
       setInterval(spawnFlower, 800);
+    </script>
+
+    <script>
+      let deferredPrompt;
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        // Stop the mini-infobar from appearing
+        e.preventDefault();
+        deferredPrompt = e;
+
+        // Show your custom install button
+        document.getElementById("installBtn").style.display = "inline-block";
+      });
+
+      function installApp() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === "accepted") {
+              console.log("User accepted install");
+            } else {
+              console.log("User dismissed install");
+            }
+            deferredPrompt = null;
+            document.getElementById("installBtn").style.display = "none";
+          });
+        }
+      }
     </script>
   </body>
 </html>

@@ -1,11 +1,11 @@
 {
   "name": "Pop Berry",
   "short_name": "PopBerry",
+  "description": "A sweet and fruity puzzle game made by Rehd!",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffeef1",
   "theme_color": "#e91e63",
-  "orientation": "portrait",
   "icons": [
     {
       "src": "pop-berry-icon.png",
