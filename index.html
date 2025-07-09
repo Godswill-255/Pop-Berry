@@ -2,33 +2,61 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pop Berry 🁬</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pop Berry 🁬</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pop Berry 🁬</title>
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="pop-berry-icon.png"
+      sizes="192x192"
+    />
+    <link rel="apple-touch-icon" href="pop-berry-icon.png" />
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#e91e63" />
+    <!-- iOS Web App Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <!-- Open Graph (for WhatsApp, Facebook, etc.) -->
+    <meta
+      property="og:title"
+      content="Pop Berry 🍬 - Swipe & Crush the Fruits!"
+    />
+    <meta
+      property="og:description"
+      content="Play Pop Berry – A sweet and fruity puzzle game made by Rehd!"
+    />
+    <meta
+      property="og:image"
+      content="https://godswill-255.github.io/Pop-Berry/pop-berry-icon.png"
+    />
+    <meta
+      property="og:url"
+      content="https://godswill-255.github.io/Pop-Berry/"
+    />
+    <meta property="og:type" content="website" />
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="pop-berry-icon.png" sizes="192x192" />
-<link rel="apple-touch-icon" href="pop-berry-icon.png" />
-
-<!-- PWA Manifest -->
-<link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#e91e63" />
-
-<!-- iOS Web App Support -->
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-<!-- Open Graph (for WhatsApp, Facebook, etc.) -->
-<meta property="og:title" content="Pop Berry 🍬 - Swipe & Crush the Fruits!" />
-<meta property="og:description" content="Play Pop Berry – A sweet and fruity puzzle game made by Rehd!" />
-<meta property="og:image" content="https://i.postimg.cc/qMsJDzvQ/favicon1.png" />
-<meta property="og:url" content="https://godswill-255.github.io/Pop-Berry/" />
-<meta property="og:type" content="website" />
-
-<!-- Twitter Cards -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Pop Berry 🍬 - Swipe & Crush the Fruits!" />
-<meta name="twitter:description" content="Play Pop Berry – A sweet and fruity puzzle game made by Rehd!" />
-<meta name="twitter:image" content="https://godswill-255.github.io/Pop-Berry/pop-berry-icon.png" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Pop Berry 🍬 - Swipe & Crush the Fruits!"
+    />
+    <meta
+      name="twitter:description"
+      content="Play Pop Berry – A sweet and fruity puzzle game made by Rehd!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://godswill-255.github.io/Pop-Berry/pop-berry-icon.png"
+    />
     <style>
       * {
         box-sizing: border-box;
@@ -40,7 +68,6 @@
         margin: 0;
         padding: 0;
       }
-      /* Spinner & Loading Screen */
       #loadingScreen {
         background: #ffeef1;
         height: 100vh;
@@ -70,7 +97,6 @@
           transform: rotate(360deg);
         }
       }
-
       header {
         background: #e91e63;
         color: white;
@@ -84,12 +110,14 @@
         cursor: pointer;
         margin-left: 15px;
       }
+
       .menu {
         position: absolute;
         top: 60px;
         left: 0;
         width: 100%;
-        background: #fff;
+        background: #ccc;
+        padding-bottom: 20px;
         border-top: 1px solid #ccc;
         display: none;
         flex-direction: column;
@@ -123,16 +151,17 @@
       }
       .board {
         width: 320px;
-        height: 320px;
-        margin: 0 auto;
-        display: grid;
+        height: 640px;
+        margin: auto;
+        display: inline-grid;
         grid-template-columns: repeat(8, 1fr);
-        grid-template-rows: repeat(8, 1fr);
+        grid-template-rows: repeat(12, 1fr);
         gap: 2px;
       }
       .square {
         width: 100%;
         height: 100%;
+        padding: 5px;
         background-color: white;
         font-size: 1.8rem;
         display: flex;
@@ -145,7 +174,7 @@
         touch-action: none;
       }
       .square:hover {
-        transform: scale(1.1);
+        transform: scale(1.2);
       }
       .pop {
         animation: pop 0.3s ease;
@@ -154,6 +183,7 @@
         0% {
           transform: scale(1);
         }
+
         50% {
           transform: scale(1.3);
         }
@@ -181,6 +211,37 @@
       .rainbow {
         background-color: #ff6fff;
       }
+      #flowerContainer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 10000;
+      }
+
+      .flower_animation {
+        position: absolute;
+        font-size: 1.8em;
+        animation: rise 8s ease-out forwards;
+        opacity: 1;
+      }
+
+      @keyframes rise {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 0.9;
+        }
+        50% {
+          transform: translateY(-25vh) scale(0.8);
+        }
+        100% {
+          transform: translateY(-50vh) scale(0.5);
+          opacity: 0;
+        }
+      }
     </style>
   </head>
   <body>
@@ -190,7 +251,6 @@
       <h3>Loading for best User Experience please wait...</h3>
       <p>Tap on game board for sound</p>
     </div>
-
     <!-- Game UI Hidden Initially -->
     <div id="gameContainer" style="display: none">
       <header>
@@ -198,7 +258,23 @@
         <span>Pop Berry 🁬</span>
       </header>
       <div class="menu" id="menu">
-        <button onclick="alert('Swipe to swap candies...')">How to Play</button>
+        <button
+          onclick="alert(`🁬 HOW TO PLAY
+
+🎯 Swap fruits to match 3+ in a row/column.
+
+💥 Matched fruits pop, new ones drop in!
+
+🌟 Rainbow candy clears rows & columns.
+
+🧊 Frozen fruits can't move—clear around them.
+
+🎵 Tap board to enable music & sounds.
+
+Level up by scoring big and crushing more! 💓`);"
+        >
+          How to Play
+        </button>
         <label style="color: #e91e63; font-weight: bold">
           Volume: 🔈<input
             type="range"
@@ -208,10 +284,9 @@
             id="volumeSlider"
             style="vertical-align: middle"
             oninput="setMusicVolume(this.value)"
-          />
-          🔊
+          />🔊
         </label>
-        <p>Made with 💓 by Rehd</p>
+        <p style="text-align: center">Made with 💓 by Rehd</p>
         <button onclick="window.open('https://wa.me/qr/D2FCHCKMSMKAE1')">
           Send Feedback
         </button>
@@ -224,7 +299,6 @@
       </div>
       <div id="board" class="board"></div>
     </div>
-
     <!-- Audio -->
     <audio id="crushSound" preload="auto">
       <source src="Bouble.mp3" type="audio/mpeg" />
@@ -232,8 +306,7 @@
     <audio id="bgMusic" preload="auto" loop>
       <source src="bg_Music.mp3" type="audio/mpeg" />
     </audio>
-
-    <!-- Game Script -->
+    <div id="flowerContainer"></div>
     <script>
       const board = document.getElementById("board");
       const crushSound = document.getElementById("crushSound");
@@ -243,8 +316,9 @@
       const levelDisplay = document.getElementById("level");
       const gameContainer = document.getElementById("gameContainer");
       const loadingScreen = document.getElementById("loadingScreen");
-
+      // BOARD DIMENSIONS
       const width = 8;
+      const height = 12; // CHANGED TO 16
       const squares = [];
       const fruitEmojis = ["🍓", "🍋", "🍇", "🍒", "🍊", "🍏"];
       let score = 0,
@@ -255,11 +329,9 @@
       let rainbowAllowed = true;
       let crushedCandies = 0;
       let levelUpMoves = 10;
-
       function toggleMenu() {
         document.getElementById("menu").classList.toggle("active");
       }
-
       function toggleMusic() {
         if (bgMusic.paused) {
           bgMusic.volume = 0.5;
@@ -268,7 +340,6 @@
           bgMusic.pause();
         }
       }
-
       board.addEventListener("click", () => {
         if (!soundUnlocked) {
           crushSound
@@ -283,7 +354,6 @@
             .catch(() => {});
         }
       });
-
       function randomFruit() {
         if (level % 2 === 1 && rainbowAllowed && Math.random() < 0.05) {
           rainbowAllowed = false;
@@ -291,14 +361,13 @@
         }
         return fruitEmojis[Math.floor(Math.random() * fruitEmojis.length)];
       }
-
       function setMusicVolume(val) {
         const volume = Math.min(100, Math.max(0, val));
         bgMusic.volume = volume / 100;
       }
-
       function createBoard() {
-        for (let i = 0; i < width * width; i++) {
+        for (let i = 0; i < width * height; i++) {
+          // CHANGED
           const square = document.createElement("div");
           square.setAttribute("id", i);
           square.classList.add("square");
@@ -306,7 +375,6 @@
           if (Math.random() < 0.07) square.classList.add("frozen");
           board.appendChild(square);
           squares.push(square);
-
           let startX = 0,
             startY = 0;
           square.addEventListener("touchstart", (e) => {
@@ -321,7 +389,6 @@
             const threshold = 30;
             const currentId = parseInt(square.id);
             let targetId = null;
-
             if (Math.abs(dx) > Math.abs(dy)) {
               if (dx > threshold) targetId = currentId + 1;
               else if (dx < -threshold) targetId = currentId - 1;
@@ -329,11 +396,10 @@
               if (dy > threshold) targetId = currentId + width;
               else if (dy < -threshold) targetId = currentId - width;
             }
-
             if (
               targetId !== null &&
               targetId >= 0 &&
-              targetId < width * width &&
+              targetId < width * height && // CHANGED
               isAdjacent(currentId, targetId)
             ) {
               swapAndCheck(currentId, targetId);
@@ -341,7 +407,6 @@
           });
         }
       }
-
       function isAdjacent(id1, id2) {
         const row1 = Math.floor(id1 / width),
           row2 = Math.floor(id2 / width);
@@ -349,7 +414,6 @@
           col2 = id2 % width;
         return Math.abs(row1 - row2) + Math.abs(col1 - col2) === 1;
       }
-
       function swapAndCheck(from, to) {
         const fromSq = squares[from],
           toSq = squares[to];
@@ -367,12 +431,12 @@
         checkMatches();
         setTimeout(updateLoop, 300);
       }
-
       function checkMatches() {
         let matched = false,
           rainbowTriggered = false;
         let toPop = new Set();
-        for (let i = 0; i < width * width; i++) {
+        for (let i = 0; i < width * height; i++) {
+          // CHANGED
           const emoji = squares[i].textContent;
           if (i % width < width - 2) {
             const row = [i, i + 1, i + 2];
@@ -385,7 +449,8 @@
               matched = true;
             }
           }
-          if (i < width * (width - 2)) {
+          if (i < width * (height - 2)) {
+            // CHANGED
             const col = [i, i + width, i + width * 2];
             if (
               col.every(
@@ -396,9 +461,9 @@
               matched = true;
             }
           }
-          if (squares[i].textContent === "🌈") {
+          if (squares[i].textContent === "🌟") {
             const neighbors = [i - 1, i + 1, i - width, i + width].filter(
-              (idx) => idx >= 0 && idx < width * width,
+              (idx) => idx >= 0 && idx < width * height, // CHANGED
             );
             if (neighbors.some((n) => toPop.has(n))) rainbowTriggered = true;
           }
@@ -421,10 +486,9 @@
         }
         return matched;
       }
-
       function triggerRainbow() {
         squares.forEach((sq, i) => {
-          if (sq.textContent === "🌈") {
+          if (sq.textContent === "🌟") {
             const row = Math.floor(i / width),
               col = i % width;
             for (let j = 0; j < width; j++) {
@@ -435,11 +499,11 @@
           }
         });
       }
-
       function dropCandies() {
         let dropped = false;
         for (let col = 0; col < width; col++) {
-          for (let row = width - 1; row >= 0; row--) {
+          for (let row = height - 1; row >= 0; row--) {
+            // CHANGED
             const idx = row * width + col;
             if (squares[idx].textContent === "") {
               let above = row - 1;
@@ -464,13 +528,11 @@
         }
         return dropped;
       }
-
       function updateLoop() {
         squares.forEach((sq) => sq.classList.remove("pop"));
         const matched = checkMatches();
         if (dropCandies() || matched) setTimeout(updateLoop, 300);
       }
-
       function checkLevelUp() {
         if (
           score >= level * levelThreshold &&
@@ -485,11 +547,9 @@
           movesDisplay.textContent = moves;
         }
       }
-
       createBoard();
       setTimeout(updateLoop, 800);
       setInterval(updateLoop, 2500);
-
       // Wait for audio to load before showing game
       const crushReady =
         crushSound.readyState >= 2
@@ -510,7 +570,6 @@
         gameContainer.style.display = "block";
       });
     </script>
-
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
@@ -524,6 +583,33 @@
             });
         });
       }
+    </script>
+
+    <script>
+      //floweranimation
+      function spawnFlower() {
+        const container = document.getElementById("flowerContainer");
+        const flower = document.createElement("span");
+        flower.classList.add("flower_animation");
+        flower.textContent = Math.random() > 0.5 ? "🌸" : "🌼";
+
+        // Random left position: 0% to 95% (so flowers don't go off edges)
+        flower.style.left = Math.random() * 95 + "vw";
+        // Always start at bottom
+        flower.style.bottom = "0px";
+        // Random animation duration for variety
+        flower.style.animationDuration = 4 + Math.random() * 2 + "s";
+
+        container.appendChild(flower);
+
+        // Remove flower after animation
+        flower.addEventListener("animationend", () => {
+          flower.remove();
+        });
+      }
+
+      // Continuously spawn flowers every 400ms (adjust for more/less)
+      setInterval(spawnFlower, 800);
     </script>
   </body>
 </html>
