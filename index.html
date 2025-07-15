@@ -6,7 +6,9 @@
     <title>Pop Berry 🁬</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <title>Pop Berry 🁬</title>
+    
     <!-- Favicon -->
     <link
       rel="icon"
@@ -127,6 +129,9 @@
       }
       .menu.active {
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
       .menu button,
       .menu p {
@@ -136,11 +141,13 @@
         padding: 10px;
         border-radius: 5px;
         font-size: 1em;
+        width: 100%;
       }
       h1 {
         font-size: 2em;
         color: #e91e63;
-        margin: 20px 0 10px;
+        margin: 10px 0 10px;
+        font-family: fantasy;
       }
       .score-panel {
         display: flex;
@@ -149,15 +156,43 @@
         margin-bottom: 10px;
         font-weight: bold;
       }
+      
+      .board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
       .board {
         width: 320px;
-        height: 640px;
+        height: 70vh;
         margin: auto;
         display: inline-grid;
-        grid-template-columns: repeat(8, 1fr);
-        grid-template-rows: repeat(12, 1fr);
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(11, 1fr);
         gap: 2px;
       }
+@media (max-width: 600px) {
+  .board {
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(11, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .board {
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+  }
+}
+
+      
+      
+      
+      
+      
+      
       .square {
         width: 100%;
         height: 100%;
@@ -173,6 +208,7 @@
         transition: transform 0.2s ease;
         touch-action: none;
       }
+      
       .square:hover {
         transform: scale(1.2);
       }
@@ -279,7 +315,7 @@
 
 🌟 Rainbow candy clears rows & columns.
 
-🧊 Frozen fruits can't move—clear around them.
+� Frozen fruits can't move—clear around them.
 
 🎵 Tap board to enable music & sounds.
 
@@ -287,8 +323,8 @@ Level up by scoring big and crushing more! 💓`);"
         >
           How to Play
         </button>
-        <label style="color: #e91e63; font-weight: bold">
-          Volume: 🔈<input
+        <label style="color: #e91e63; font-weight: bold; padding: 10px;">
+          Volume: <i class="fas fa-volume-down"></i><input
             type="range"
             min="0"
             max="100"
@@ -296,7 +332,7 @@ Level up by scoring big and crushing more! 💓`);"
             id="volumeSlider"
             style="vertical-align: middle"
             oninput="setMusicVolume(this.value)"
-          />🔊
+          /><i class="fas fa-volume-up"></i>
         </label>
         <p style="text-align: center">Made with 💓 by Rehd</p>
         <button onclick="window.open('https://wa.me/qr/D2FCHCKMSMKAE1')">
@@ -309,8 +345,11 @@ Level up by scoring big and crushing more! 💓`);"
         <p>Moves: <span id="moves">0</span></p>
         <p>Score: <span id="score">0</span></p>
       </div>
-      <div id="board" class="board"></div>
+      </div>
+    <div class="board-container">
+        <div id="board" class="board"></div>
     </div>
+
     <!-- Audio -->
     <audio id="crushSound" preload="auto">
       <source src="Bouble.mp3" type="audio/mpeg" />
@@ -329,8 +368,27 @@ Level up by scoring big and crushing more! 💓`);"
       const gameContainer = document.getElementById("gameContainer");
       const loadingScreen = document.getElementById("loadingScreen");
       // BOARD DIMENSIONS
-      const width = 8;
-      const height = 12; // CHANGED TO 16
+      //size of board 
+      let width, height;
+
+function setBoardDimensions() {
+  if (window.innerWidth <= 600) {
+    width = 7;
+    height = 11;
+  } else if (window.innerWidth >= 900) {
+    width = 15;
+    height = 10;
+  } else {
+    width = 7;
+    height = 11;
+  }
+}
+
+// Call setBoardDimensions initially
+setBoardDimensions();
+
+      
+      
       const squares = [];
       const fruitEmojis = ["🍓", "🍋", "🍇", "🍒", "🍊", "🍏"];
       let score = 0,
